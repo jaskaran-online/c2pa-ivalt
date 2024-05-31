@@ -67,8 +67,8 @@ const FileUpload = () => {
 
           // Initialize the c2pa-js SDK
           const c2pa = await createC2pa({
-            wasmSrc: "https://cdn.jsdelivr.net/npm/c2pa@0.17.2/dist/assets/wasm/toolkit_bg.wasm",
-            workerSrc: "https://cdn.jsdelivr.net/npm/c2pa@0.17.2/dist/c2pa.worker.min.js",
+            wasmSrc: "/toolkit_bg.wasm",
+            workerSrc: "/c2pa.worker.min.js",
           });
 
           try {
@@ -76,7 +76,7 @@ const FileUpload = () => {
             console.log("Sample Image URL:", sampleImage);
 
             // Read in the uploaded image and get a manifest store
-            const { manifestStore } = await c2pa.read(sampleImage);
+            const { manifestStore } = await c2pa.read(sampleImage,);
             setManifestStore(manifestStore);
 
             // Get the active manifest
