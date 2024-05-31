@@ -56,46 +56,48 @@ const FileUpload = () => {
     setActiveManifest(null);
 
     axios
-        .post("https://ivalt-wordpress.site/rest-apis/", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        })
-        .then(async (response) => {
-          setMessage("File uploaded successfully!");
-          setFileUrl(response.data.fileUrl);
+      .post("https://ivalt-wordpress.site/rest-apis/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then(async (response) => {
+        setMessage("File uploaded successfully!");
+        setFileUrl(response.data.fileUrl);
 
-          // Initialize the c2pa-js SDK
-          const c2pa = await createC2pa({
-            wasmSrc: "/toolkit_bg.wasm",
-            workerSrc: "/c2pa.worker.min.js",
-          });
-
-          try {
-            const sampleImage = response.data.fileUrl;
-            console.log("Sample Image URL:", sampleImage);
-
-            // Read in the uploaded image and get a manifest store
-            const { manifestStore } = await c2pa.read(sampleImage,);
-            setManifestStore(manifestStore);
-
-            // Get the active manifest
-            const activeManifest = manifestStore?.activeManifest;
-            setActiveManifest(activeManifest);
-          } catch (err) {
-            console.error("Error reading image:", err);
-            setMessage("Error reading image.");
-          }
-        })
-        .catch((error) => {
-          setMessage("File upload failed.");
-          console.error("Error:", error);
-        })
-        .finally(() => {
-          setLoading(false);
+        // Initialize the c2pa-js SDK
+        const c2pa = await createC2pa({
+          wasmSrc:
+            "https://cdn.jsdelivr.net/npm/c2pa@0.17.2/dist/assets/wasm/toolkit_bg.wasm",
+          workerSrc:
+            "https://cdn.jsdelivr.net/npm/c2pa@0.17.2/dist/c2pa.worker.min.js",
         });
-  };
 
+        try {
+          const sampleImage =
+            "https://raw.githubusercontent.com/contentauth/c2pa-js/main/tools/testing/fixtures/images/CAICAI.jpg";
+          // const sampleImage = response.data.fileUrl;
+          // Read in the uploaded image and get a manifest store
+          const { manifestStore } = await c2pa.read(sampleImage);
+          setManifestStore(manifestStore);
+          // console.log(manifestStore)
+
+          // Get the active manifest
+          const activeManifest = manifestStore?.activeManifest;
+          setActiveManifest(activeManifest);
+          //  console.log('Active Manifest:', activeManifest);
+        } catch (err) {
+          console.error("Error reading image:", err);
+        }
+      })
+      .catch((error) => {
+        setMessage("File upload failed.");
+        console.error("Error:", error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">

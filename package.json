@@ -15,6 +15,7 @@
     "@nextui-org/react": "^2.1.13",
     "@nextui-org/system": "^2.0.10",
     "@nextui-org/theme": "^2.1.9",
+    "@uploadcare/react-uploader": "^0.5.2",
     "axios": "^1.7.2",
     "clsx": "^2.1.1",
     "firebase": "^10.12.1",
