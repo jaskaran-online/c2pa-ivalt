@@ -59,7 +59,7 @@ export function Form(props) {
             </p>
             <PhoneInput
               className="text-center w-full"
-              country="us"
+              country="in"
               value={props.value}
               onChange={props.onChange}
               enableSearch={true}

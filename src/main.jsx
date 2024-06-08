@@ -9,12 +9,16 @@ import Success from './components/Success.jsx';
   {
     
       path : '/',
-      element : <App/>
+      element : <Success/>
      },
      {
           path : '/success',
           element : <Success/>
      },
+     {
+      path : '/app',
+      element : <App/>
+ },
       
     
   

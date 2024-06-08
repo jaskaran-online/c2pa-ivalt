@@ -67,6 +67,10 @@ export default function Success() {
             const activeManifest = manifestStore?.activeManifest;
             console.log({activeManifest})
             setActiveManifest(activeManifest);
+            const mobile = activeManifest.assertions.data[1].data.phone;
+            console.log(mobile);
+            
+
         } catch (err) {
             console.error("Error reading image:", err);
             setMessage("Error reading image.");
