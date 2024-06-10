@@ -5,6 +5,7 @@ import {NextUIProvider} from "@nextui-org/react";
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css'
 import Success from './components/Success.jsx';
+import Verified from './components/Verified.jsx';
  const router = createBrowserRouter([
   {
     
@@ -18,10 +19,13 @@ import Success from './components/Success.jsx';
      {
       path : '/app',
       element : <App/>
- },
-      
-    
-  
+    },
+    {
+      path : '/verified',
+      element : <Verified/>
+    },
+ 
+       
  ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

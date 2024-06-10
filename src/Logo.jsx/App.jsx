@@ -1,6 +1,4 @@
-
-
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { Card, CardBody } from "@nextui-org/react";
@@ -16,10 +14,6 @@ import { ErrorMessage } from "../components/ErrorMessage.jsx";
 import { Form } from "../componentsForm.jsx";
 import { BackgroundBeams } from "../components/ui/background-beams";
 
-
-
-
-
 function Logo() {
   return (
     <div className="flex justify-center mb-4 md:mt-5">
@@ -34,10 +28,11 @@ function Logo() {
 
 const TIMEOUT = 40;
 
-export default function App() 
-{
-  // const history = useHistory();
+export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const data = location?.state?.data;
+
   const queryParams = useQueryParams();
   const [btnTitle, setBtnTitle] = useState("Send Request to iVALT");
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,7 +41,7 @@ export default function App()
   const [btnVariant, setBtnVariant] = useState("primary");
   const [userVerified, setUserVerified] = useState(null);
   const [decodedData, setDecodedData] = useState(null);
-  const [mobileNumber, setMobileNumber] = useState("1");
+  const [mobileNumber, setMobileNumber] = useState(" ");
   const timeoutOccurred = useRef(false);
   const userAgent = navigator.userAgent;
   const isMobileDevice =
@@ -77,7 +72,7 @@ export default function App()
     setBtnTitle("Send Request to iVALT");
     setBtnVariant("danger");
     setTimeout(() => setBtnVariant("primary"), 2000);
-    setMobileNumber("1");
+    setMobileNumber("");
   }
 
   /**
@@ -86,24 +81,24 @@ export default function App()
    * @param {string} mobileNumber - The mobile number to send the notification to.
    * @return {Promise<void>} - A promise that resolves when the notification is sent.
    */
-  async function sendNotification(mobileNumber) {
+  async function sendNotification(mobile) {
     try {
       setBtnTitle("Sending notification....");
       setBtnLoading(true);
       setErrorMessage("");
       setBtnVariant("default");
 
-      const response = await sendNotificationApi(mobileNumber);
+      const response = await sendNotificationApi(mobile);
       const jsonResponse = await response.json();
 
       if (response.ok) {
         setBtnVariant("success");
         start();
-        await verifyAuthUser(mobileNumber);
+        await verifyAuthUser(mobile);
         toast.success(jsonResponse.data.message);
       } else {
         showErrorMessage(jsonResponse.error.title, jsonResponse.error.detail);
-        setMobileNumber("1");
+        setMobileNumber(" ");
       }
     } catch (error) {
       console.log(error);
@@ -148,10 +143,10 @@ export default function App()
         toast.success(jsonResponse.data.message);
         setBtnTitle("User Verified");
         setTimeout(() => {
-          setMobileNumber("1");
+          setMobileNumber(" ");
           setUserVerified(jsonResponse.data.details);
           pause();
-          navigate('/success', { state: { data: jsonResponse.data.details} });
+          navigate("/verified");
         }, 1500);
       }
 
@@ -178,23 +173,27 @@ export default function App()
   }, [queryParams.token]);
 
   useEffect(() => {
-    
     if (seconds === 0 && minutes === 0) {
       // Set timeoutOccurred flag when timeout occurs
       timeoutOccurred.current = true;
     }
   }, [seconds, minutes]);
 
+  useEffect(() => {
+    if (data !== " ") {
+      setMobileNumber(data);
+      sendNotification(`${data}`);
+    }
+  }, [data]);
+
   return (
-    
     <div className="flex flex-col justify-between min-h-screen h-screen  bg-gray-700 bg-gradient-to-b from-gray-950 ">
       <BackgroundBeams />
-      
-      
+
       <section className="flex flex-col gap-2 items-center p-4 z-50 ">
         {/* <Logo /> */}
         {/* <h4 className="text-center text-white text-3xl my-8"><Link to="/success">Success Page   -   </Link></h4> */}
-        
+
         <Card className="h-auto rounded-sm shadow-md py-3 md:min-w-[425px] overflow-visible mt-28">
           <CardBody className="overflow-visible">
             <p className="text-2xl text-center font-semibold font-sans my-3">
@@ -205,7 +204,7 @@ export default function App()
               loading={loading}
               userVerified={userVerified}
               value={mobileNumber}
-              onChange={(phone) => setMobileNumber(phone)}
+              onChange={(phone) => setMobileNumber(mobile)}
               disabled={btnLoading}
               color={btnVariant}
               onClick={handleFormSubmit()}
@@ -219,7 +218,6 @@ export default function App()
               <>
                 <span className="ml-1 text-center my-2">User Verified ✅</span>
                 <InfoCard info={decodedData} user={userVerified} />
-                
               </>
             )}
           </CardBody>
@@ -237,7 +235,6 @@ export default function App()
           }}
         />
       </section>
-      
     </div>
   );
 }
