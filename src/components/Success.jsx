@@ -213,12 +213,7 @@ export default function Success() {
             )}
           </div>
         </div>
-        <button
-          className="absolute top-5 right-5 text-white bg-red-500 px-4 py-2 rounded text-lg"
-          onClick={logout}
-        >
-          Logout
-        </button>
+       
       </div>
     </div>
   );
