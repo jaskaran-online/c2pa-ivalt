@@ -1,6 +1,16 @@
 import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Verified() {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const data = location?.state?.data;
+  console.log(data)
+
+
+
+
   return (
     <>
       <div className="flex items-center justify-center h-screen bg-slate-200 mb-10 ">
@@ -12,6 +22,9 @@ export default function Verified() {
             <p className="text-lg text-white">
               You are now verified. You can now upload your images/files.
             </p>
+          </div>
+          <div>
+            
           </div>
         </div>
       </div>

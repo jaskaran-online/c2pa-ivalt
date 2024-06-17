@@ -65,8 +65,12 @@ export default function Success() {
       const mobile = `${countryCode}${phone}`;
       console.log(mobile);
 
+    
+
       // Navigate to the App component with phone prop
-      navigate("/app", { state: { data: mobile } });
+      navigate("/app", { state: { data: mobile }  });
+    
+
     } catch (err) {
       console.error("Error reading image:", err);
       setMessage("Error reading image.");

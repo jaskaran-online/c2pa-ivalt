@@ -33,6 +33,11 @@ export default function App() {
   const location = useLocation();
   const data = location?.state?.data;
 
+
+  
+
+  
+
   const queryParams = useQueryParams();
   const [btnTitle, setBtnTitle] = useState("Send Request to iVALT");
   const [errorMessage, setErrorMessage] = useState("");
@@ -146,7 +151,8 @@ export default function App() {
           setMobileNumber(" ");
           setUserVerified(jsonResponse.data.details);
           pause();
-          navigate("/verified");
+          navigate("/verified", { state: { data: jsonResponse.data.details } });
+          // navigate("/verified");
         }, 1500);
       }
 
