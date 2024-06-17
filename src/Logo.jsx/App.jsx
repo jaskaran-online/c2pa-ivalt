@@ -29,9 +29,16 @@ function Logo() {
 const TIMEOUT = 40;
 
 export default function App() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const data = location?.state?.data;
+  const data = location.state.data.mobile;
+  const active = location.state.data.activeManifest;
+
+  console.log({ data, active });
+
+
+  const navigate = useNavigate();
+  // const location = useLocation();
+  // const data = location?.state?.data;
 
 
   
@@ -151,7 +158,7 @@ export default function App() {
           setMobileNumber(" ");
           setUserVerified(jsonResponse.data.details);
           pause();
-          navigate("/verified", { state: { data: jsonResponse.data.details } });
+          navigate("/verified", { state: { data: jsonResponse.data.details , active } });
           // navigate("/verified");
         }, 1500);
       }

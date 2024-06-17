@@ -6,6 +6,7 @@ import { FileUploaderRegular } from "@uploadcare/react-uploader";
 import { createC2pa } from "https://cdn.jsdelivr.net/npm/c2pa@0.17.2/+esm";
 import { sendNotificationApi, verifyAuthUserApi } from "../apis/services.js";
 import App from "../Logo.jsx/App.jsx";
+import { image } from "@nextui-org/theme";
 
 export default function Success() {
   const [files, setFiles] = useState([]);
@@ -14,6 +15,29 @@ export default function Success() {
   const navigate = useNavigate();
   const location = useLocation();
   const data = location?.state?.data;
+
+  // const activeManifest1 = {
+  //   title: "image-20-1024x681.jpg",
+  //   signatureInfo: {
+  //     issuer: 'C2PA Test Signing Cert',
+  //     cert_serial_number: '640229841392226413189608867977836244731148734950',
+  //     time: '2024-06-09T04:49:52+00:00'
+  //   },
+  //   ingredients: [
+  //     {
+  //       title: "Ingredient Title 1",
+  //       format: "image/jpeg",
+  //       instanceId: "xmp:iid:1234abcd"
+  //     },
+  //     {
+  //       title: "Ingredient Title 2",
+  //       format: "image/png",
+  //       instanceId: "xmp:iid:5678efgh"
+  //     }
+  //   ],
+  //   instanceId: "xmp:iid:665c221a-6a25-4277-8a4d-69ad4df507c3",
+  //   format: "image/jpeg"
+  // };
 
   const logout = () => {
     localStorage.clear();
@@ -65,12 +89,28 @@ export default function Success() {
       const mobile = `${countryCode}${phone}`;
       console.log(mobile);
 
-    
+      let activeManifest1 = {
+        image: fileUrl,
+        title: activeManifest.title,
+        format: activeManifest.format,
+        instanceId: activeManifest.instanceId, // Ensure this is correctly cased
+        signatureInfo: {
+          issuer: activeManifest.signatureInfo.issuer,
+          cert_serial_number: activeManifest.signatureInfo.cert_serial_number,
+          time: activeManifest.signatureInfo.time,
+        },
+        ingredients: activeManifest.ingredients.map((ingredient) => ({
+          title: ingredient.title,
+          format: ingredient.format,
+          instanceId: ingredient.instanceId,
+        })),
+      };
+
+      const dataToPass = { mobile, activeManifest: activeManifest1 };
+      console.log(dataToPass);
 
       // Navigate to the App component with phone prop
-      navigate("/app", { state: { data: mobile }  });
-    
-
+      navigate("/app", { state: { data: dataToPass } });
     } catch (err) {
       console.error("Error reading image:", err);
       setMessage("Error reading image.");
@@ -217,7 +257,6 @@ export default function Success() {
             )}
           </div>
         </div>
-       
       </div>
     </div>
   );
