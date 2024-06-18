@@ -40,7 +40,7 @@ export function Form(props) {
       const result = await signInWithPopup(auth, facebookProvider);
       // The signed-in user info.
       const user = result.user;
-      console.log("User Info:", user);
+      // console.log("User Info:", user);
       // You can save the user info to your state, context, or store it in local storage/session storage
     } catch (error) {
       console.error("Error during Facebook login:", error);

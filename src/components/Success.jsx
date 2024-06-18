@@ -66,8 +66,8 @@ export default function Success() {
     });
 
     try {
-      console.log("Sample Image URL:", fileUrl);
-      console.log(c2pa);
+      // console.log("Sample Image URL:", fileUrl);
+      // console.log(c2pa);
 
       // Read in the uploaded image and get a manifest store
       const { manifestStore } = await c2pa.read(fileUrl);
@@ -76,18 +76,14 @@ export default function Success() {
         return;
       }
 
-      console.log("Manifest Store:", manifestStore);
-
       // Get the active manifest
       const activeManifest = manifestStore?.activeManifest;
-      console.log({ activeManifest });
+      // console.log({ activeManifest });
       setActiveManifest(activeManifest);
 
       const phone = activeManifest.assertions.data[1].data.phone;
       const countryCode = activeManifest.assertions.data[1].data.countryCode;
-      console.log(countryCode);
       const mobile = `${countryCode}${phone}`;
-      console.log(mobile);
 
       let activeManifest1 = {
         image: fileUrl,
@@ -107,8 +103,6 @@ export default function Success() {
       };
 
       const dataToPass = { mobile, activeManifest: activeManifest1 };
-      console.log(dataToPass);
-
       // Navigate to the App component with phone prop
       navigate("/app", { state: { data: dataToPass } });
     } catch (err) {

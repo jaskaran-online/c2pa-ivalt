@@ -33,17 +33,7 @@ export default function App() {
   const data = location.state.data.mobile;
   const active = location.state.data.activeManifest;
 
-  console.log({ data, active });
-
-
   const navigate = useNavigate();
-  // const location = useLocation();
-  // const data = location?.state?.data;
-
-
-  
-
-  
 
   const queryParams = useQueryParams();
   const [btnTitle, setBtnTitle] = useState("Send Request to iVALT");
@@ -138,8 +128,6 @@ export default function App() {
    */
   async function verifyAuthUser(mobileNumber) {
     try {
-      // console.log(mobileNumber, timeoutOccurred.current);
-
       if (timeoutOccurred.current) return; // Check if timeout occurred before making the API call
       setBtnTitle("Requesting authentication....");
       const response = await verifyAuthUserApi(mobileNumber);
@@ -158,7 +146,9 @@ export default function App() {
           setMobileNumber(" ");
           setUserVerified(jsonResponse.data.details);
           pause();
-          navigate("/verified", { state: { data: jsonResponse.data.details , active } });
+          navigate("/verified", {
+            state: { data: jsonResponse.data.details, active },
+          });
           // navigate("/verified");
         }, 1500);
       }
