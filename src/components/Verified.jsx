@@ -31,15 +31,24 @@ export default function Verified() {
                   <tbody>
                     <tr className="border-b border-gray-200">
                       <th className="py-3 px-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                        Instance ID:
+                        Instance ID
+                      </th>
+                      <td className="break-normal px-4 py-3 text-sm text-gray-700 break-all">
+                        {active.instanceId}
+                      </td>
+                    </tr>
+
+                    <tr className="border-b border-gray-200">
+                      <th className="py-3 px-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
+                        Mobile
                       </th>
                       <td className="py-3 px-4 text-sm text-gray-700">
-                        {active.instanceId}
+                        {active.mobile}
                       </td>
                     </tr>
                     <tr className="border-b border-gray-200">
                       <th className="py-3 px-4 text-left text-sm font-medium text-gray-500 uppercase tracking-wider">
-                        Format:
+                        Format
                       </th>
                       <td className="py-3 px-4 text-sm text-gray-700">
                         {active.format}
@@ -79,7 +88,7 @@ export default function Verified() {
                                   {ingredient.format}
                                 </div>
                                 <div>
-                                  <span className="font-semibold">
+                                  <span className="font-semibold ">
                                     Instance ID:
                                   </span>{" "}
                                   {ingredient.instanceId}

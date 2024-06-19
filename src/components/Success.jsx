@@ -88,6 +88,7 @@ export default function Success() {
       let activeManifest1 = {
         image: fileUrl,
         title: activeManifest.title,
+        mobile: mobile,
         format: activeManifest.format,
         instanceId: activeManifest.instanceId, // Ensure this is correctly cased
         signatureInfo: {
