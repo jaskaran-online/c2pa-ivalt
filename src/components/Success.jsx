@@ -122,7 +122,12 @@ export default function Success() {
     <div>
       <BackgroundBeams />
 
-      <div className="min-h-screen bg-gray-700 bg-gradient-to-b from-gray-950 flex justify-center items-center">
+      <div className="min-h-screen bg-gray-700 bg-gradient-to-b from-gray-950 flex justify-center items-center" style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "45px"
+      }}
+      >
         <div className="flex items-center justify-center">
           <img src="https://ivalt.com/wp-content/themes/t466jHjHxHAGxHAGqd_ivalt/images/logohome.png" width="300" alt="ivalt logo" className="text-center mx-auto"/>
         </div>
