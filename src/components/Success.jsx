@@ -123,7 +123,10 @@ export default function Success() {
       <BackgroundBeams />
 
       <div className="min-h-screen bg-gray-700 bg-gradient-to-b from-gray-950 flex justify-center items-center">
-        <div className="w-3/5 max-w-5xl p-5 md:p-10 z-10 bg-white rounded">
+        <div className="flex items-center justify-center">
+          <img src="https://ivalt.com/wp-content/themes/t466jHjHxHAGxHAGqd_ivalt/images/logohome.png" width="300" alt="ivalt logo" className="text-center mx-auto"/>
+        </div>
+        <div className="w-3/5 max-w-5xl p-5 md:p-10 z-10 bg-white rounded mx-auto">
           {/*<FileUpload/>*/}
           {message && (
             <div className=" text-center py-2 text-sm text-gray-500 mb-5 md:mb-10 bg-sky-300 border-sky-700">
@@ -138,7 +141,7 @@ export default function Success() {
             onChange={handleChangeEvent}
             multiple="false"
           />
-          <hr />
+          <br />
           <br />
           <div>
             <center>
