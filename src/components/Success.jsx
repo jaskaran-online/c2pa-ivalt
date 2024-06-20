@@ -136,6 +136,7 @@ export default function Success() {
             imgOnly={true}
             sourceList="local, url, camera"
             onChange={handleChangeEvent}
+            multiple="false"
           />
           <hr />
           <br />
