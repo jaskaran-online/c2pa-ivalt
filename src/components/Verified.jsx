@@ -10,7 +10,11 @@ export default function Verified() {
   return (
     <>
       <div className="min-h-screen flex flex-col items-center bg-gray-400 p-4">
-        <h1 className="text-4xl font-bold text-gray-800 mb-6">
+      <div className="flex items-center justify-center">
+          <img src="https://ivalt.com/wp-content/themes/t466jHjHxHAGxHAGqd_ivalt/images/logohome.png" width="300" alt="ivalt logo" className="text-center mx-auto"/>
+        </div>
+
+        <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center mt-4">
           Verified Details
         </h1>
         <div className=" max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden flex flex-col md:flex-row">
